@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lend a Helping Hand</title>
+    
+    <!-- Premium Geometric Typography: Jost (Futura/SST equivalent) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* [TOKEN BINDING - Soft, Empathetic Palette] */
+        :root {
+            --base-warm: #FDFBF7;
+            --container-white: #FFFFFF;
+            --text-charcoal: #2A2A2E;
+            --text-muted: #6B6B70;
+            
+            /* Lilac Vibe Tokens */
+            --lilac-light: #EBE1FF;
+            --lilac-base: #D0BFFF;
+            --lilac-deep: #9D74E3;
+            --lilac-glow: rgba(157, 116, 227, 0.25);
+            
+            --space-unit: clamp(1rem, 2vw, 1.5rem);
+            --space-section: clamp(4rem, 8vw, 6rem);
+            
+            --radius-soft: 24px;
+            --radius-pill: 999px;
+        }
+
+        /* [LOGIC BEFORE OPTICS] */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--base-warm);
+            color: var(--text-charcoal);
+            font-family: 'Jost', 'Futura', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+            
+            /* Subtle Ambient Background Glow */
+            background-image: radial-gradient(circle at 50% 0%, var(--lilac-light) 0%, transparent 50%);
+            background-repeat: no-repeat;
+        }
+
+        /* [TYPOGRAPHY - Nike/Sony Clean Lineage] */
+        h1, h2 {
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.01em;
+        }
+
+        .support-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-section) var(--space-unit);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* [NARRATIVE - Soft & Encouraging] */
+        .narrative-header {
+            max-width: 700px;
+            margin-bottom: var(--space-section);
+        }
+
+        .narrative-header h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+            color: var(--text-charcoal);
+        }
+
+        .narrative-header p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* [SYMMETRICAL IMAGE TRIPTYCH] */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 2rem;
+            width: 100%;
+            margin-bottom: var(--space-section);
+        }
+
+        @media (min-width: 768px) {
+            .image-gallery {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .gallery-card {
+            aspect-ratio: 1 / 1;
+            background-color: var(--container-white);
+            border-radius: var(--radius-soft);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid rgba(208, 191, 255, 0.3);
+        }
+
+        /* Inner soft glow to give a premium placeholder feel */
+        .gallery-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 40%, rgba(208, 191, 255, 0.1) 100%);
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px var(--lilac-glow);
+        }
+
+        /* Image fitment for gallery cards */
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: inherit;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        /* [UTILITIES - Proportional QR & Buttons] */
+        .utility-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: clamp(2.5rem, 6vw, 4rem);
+            width: 100%;
+        }
+
+        .utility-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .qr-frame {
+            width: 180px;
+            height: 180px;
+            background-color: var(--container-white);
+            border-radius: var(--radius-soft);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            color: var(--lilac-deep);
+            border: 2px solid var(--lilac-light);
+            transition: border-color 0.3s ease;
+        }
+
+        .qr-frame:hover {
+            border-color: var(--lilac-base);
+        }
+
+        /* QR Image Fitment */
+        .qr-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 1rem;
+            border-radius: inherit;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        /* [HYPER-TACTILE 3D GLOSS BUTTON] */
+        .action-btn {
+            appearance: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            
+            /* Typography */
+            font-family: 'Jost', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: #4A3078; /* Deep readable purple */
+            
+            /* Sizing & Shape */
+            padding: 1.2rem 3.5rem;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            
+            /* 3D Gloss & Color */
+            background: linear-gradient(145deg, #EBE1FF 0%, #D0BFFF 100%);
+            
+            /* Physical tactile shadow stack: 
+               1. Top inner highlight 
+               2. Solid 3D edge (the physical depth)
+               3. Ambient glow */
+            box-shadow: 
+                inset 0 4px 6px rgba(255, 255, 255, 0.8),
+                0 10px 0 var(--lilac-deep),
+                0 20px 25px var(--lilac-glow);
+            
+            position: relative;
+            transform: translateY(0);
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        /* Hover: Slight depression, softer edge */
+        .action-btn:hover {
+            transform: translateY(2px);
+            box-shadow: 
+                inset 0 4px 6px rgba(255, 255, 255, 0.9),
+                0 8px 0 var(--lilac-deep),
+                0 15px 20px var(--lilac-glow);
+        }
+
+        /* Active/Click: Strong tactile snap, shadow crushed */
+        .action-btn:active {
+            transform: translateY(10px);
+            box-shadow: 
+                inset 0 2px 4px rgba(255, 255, 255, 0.6),
+                0 0 0 var(--lilac-deep),
+                0 5px 10px rgba(157, 116, 227, 0.15);
+        }
+
+        /* [FOOTER] */
+        .footer-soft {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="support-wrapper">
+        
+        <!-- [NARRATIVE HEADER] -->
+        <header class="narrative-header">
+            <div class="markdown-render-area">
+                <h1>Lend a Helping Hand</h1>
+                <p><strong>[MARKDOWN RENDER AREA]</strong></p>
+                <p>Your kindness creates ripples. Every contribution brings warmth, stability, and crucial support to those navigating difficult times. Together, we can build a foundation of care.</p>
+            </div>
+        </header>
+
+        <!-- [SYMMETRICAL IMAGE GALLERY] -->
+        <section class="image-gallery" aria-label="Stories of impact">
+            <div class="gallery-card" role="img" aria-label="Impact image 1">
+                <img src="https://www.dropbox.com/scl/fi/aimgx8fxh7ksfk2xyv6w8/58319B73-CC18-4706-A917-B4F1E710426A_1_105_c.jpeg?rlkey=towoqnp3qkh5pbustbtu1r9u6&st=9akqcwal&raw=1" alt="Impact highlight" class="gallery-img" loading="lazy">
+            </div>
+            <div class="gallery-card" role="img" aria-label="Impact image 2">
+                <img src="https://www.dropbox.com/scl/fi/se4x84i67sffm99vkal35/85196EA5-405C-496B-813F-1E7E1213A7A7_1_105_c.jpeg?rlkey=wv61f2kyexhed1di0git1mqtp&st=nvku09qz&raw=1" alt="Impact highlight" class="gallery-img" loading="lazy">
+            </div>
+            <div class="gallery-card" role="img" aria-label="Impact image 3">
+                <img src="https://dl.dropboxusercontent.com/scl/fi/ovmfnslkz3gy6jn8e1z0y/IMG_8573.JPG?rlkey=skvw873iqp06fr41wcue72r8m&st=yivjiyze&raw=1" alt="Impact highlight" class="gallery-img" loading="lazy">
+            </div>
+        </section>
+
+        <!-- [PROPORTIONAL UTILITY NODES] -->
+        <section class="utility-grid">
+            
+            <div class="utility-node">
+                <div class="qr-frame">
+                    <img src="https://www.dropbox.com/scl/fi/su7zamnwpxbonalhx7hul/CashAppQR.jpg?rlkey=beeyjglreszlalevo62xbvps9&st=y2mdi9s0&raw=1" alt="CashApp QR Code" class="qr-image" loading="lazy">
+                </div>
+                <a href="https://cash.app/$scottscottbobot" target="_blank" rel="noopener noreferrer" class="action-btn">Help Out</a>
+            </div>
+
+            <div class="utility-node">
+                <div class="qr-frame">
+                    <img src="https://www.dropbox.com/scl/fi/vul3snmwlc8h64rmyo75z/mason-scottqr.png?rlkey=9wf9ioxmbyzs0msutih7vlkxs&st=tnks0rvp&raw=1" alt="Stripe QR Code" class="qr-image" loading="lazy">
+                </div>
+                <a href="https://donate.stripe.com/14A4gz4VZ40a0BCaaQ0oM0j" target="_blank" rel="noopener noreferrer" class="action-btn">Help Out</a>
+            </div>
+
+            <div class="utility-node">
+                <div class="qr-frame">
+                    <img src="https://www.dropbox.com/scl/fi/v389omenfgfm00pdbnsnq/venmoqr.jpg?rlkey=vquw54599lzd8ayrw3rpao38t&st=tzyxj2cg&raw=1" alt="Venmo QR Code" class="qr-image" loading="lazy">
+                </div>
+                <a href="https://venmo.com/u/mog86dg" target="_blank" rel="noopener noreferrer" class="action-btn">Help Out</a>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="footer-soft">
+        <p>Your support is secure and deeply appreciated. All gifts go directly to those in need.</p>
+    </footer>
+
+</body>
+</html>
